@@ -1,5 +1,6 @@
 require "simplecov"
 require "support/requests/shared_requests"
+require "support/models/shared_examples"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
