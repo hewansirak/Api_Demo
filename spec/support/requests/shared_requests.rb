@@ -40,7 +40,6 @@ RSpec.shared_examples "request_shared_spec" do |controller, field_count, exclude
           expect do
             post(
               send("#{controller}_url"),
-              headers: headers,
               params: params,
               as: :json
             )
@@ -59,7 +58,6 @@ RSpec.shared_examples "request_shared_spec" do |controller, field_count, exclude
           post(
             send("#{controller}_url"),
             params: params,
-            headers: headers,
             as: :json
           )
           expect(response).to have_http_status(:unprocessable_entity)
@@ -82,7 +80,6 @@ RSpec.shared_examples "request_shared_spec" do |controller, field_count, exclude
 
           put(
             send("#{controller.singularize}_url", obj),
-            headers: headers,
             params: params, as: :json
           )
           obj.reload
@@ -103,7 +100,6 @@ RSpec.shared_examples "request_shared_spec" do |controller, field_count, exclude
           params = {id: obj.to_param, payload: invalid_attributes}
           put(
             send("#{controller.singularize}_url", obj),
-            headers: headers,
             params: params,
             as: :json
           )

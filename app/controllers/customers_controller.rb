@@ -1,16 +1,15 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: %i[ show update destroy ]
+  before_action :set_customer, only: %i[show update destroy]
 
   # GET /customers
   def index
     @customers = Customer.all
-
-    render json: @customers
+    render json: {success: true, data: serialize(@customers)}
   end
 
   # GET /customers/1
   def show
-    render json: @customer
+    render json: {success: true, data: serialize(@customer)}
   end
 
   # POST /customers
@@ -18,18 +17,18 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      render json: @customer, status: :created, location: @customer
+      render json: {success: true, data: serialize(@customer)}, status: :created
     else
-      render json: @customer.errors, status: :unprocessable_entity
+      render json: {success: false, error: @customer.errors}, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /customers/1
   def update
     if @customer.update(customer_params)
-      render json: @customer
+      render json: {success: true, data: serialize(@customer)}
     else
-      render json: @customer.errors, status: :unprocessable_entity
+      render json: {success: false, error: @customer.errors}, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +45,6 @@ class CustomersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def customer_params
-      params.require(:customer).permit(:code, :name)
+      params.require(:payload).permit(:code, :name)
     end
 end
