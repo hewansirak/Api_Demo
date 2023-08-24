@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   resources :invoice_items
-  resources :invoices
+  resources :invoices, except: [:index]
   resources :items
-  resources :customers
+  resources :customers do
+    member do
+      get "invoices", controller: :invoices, action: :index
+    end
+  end
   resources :people
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end

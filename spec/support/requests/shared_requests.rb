@@ -7,7 +7,7 @@ RSpec.shared_examples "request_shared_spec" do |controller, field_count, exclude
       it "returns success response" do
         count = clazz.count
         3.times { create(factory) }
-        get(send("#{controller}_url"), headers: headers, as: :json)
+        get(send("#{controller}_url"), as: :json)
         expect(response).to be_successful
         result = JSON(response.body)
 
