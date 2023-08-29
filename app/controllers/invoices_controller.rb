@@ -4,6 +4,6 @@ class InvoicesController < ApplicationController
   private
 
   def model_params
-    params.require(:invoice).permit(:invoice_number, :generated_on, :status, :customer_id, :total_price)
+    params.require(:payload).permit(:invoice_number, :generated_on, :status, :customer_id, :total_price)
   end
 end

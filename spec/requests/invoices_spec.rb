@@ -2,12 +2,13 @@ require 'rails_helper'
 
 
 RSpec.describe "/invoices", type: :request do
-  include_examples("request_shared_spec", "invoices", 3, [:index])
+  include_examples("request_shared_spec", "invoices", 6, [:index])
   let(:valid_attributes) {
     {
       invoice_number: Faker::Alphanumeric.alpha(number: 8),
       generated_on: Date.current,
-      status: Invoice::DRAFT
+      status: Invoice::DRAFT,
+      customer_id: create(:customer).id
     }
   }
 
@@ -15,7 +16,8 @@ RSpec.describe "/invoices", type: :request do
     {
       invoice_number: nil,
       generated_on: Date.current.advance(days: -1),
-      status: Invoice::DRAFT
+      status: Invoice::DRAFT,
+      customer_id: create(:customer).id
     }
   }
 
