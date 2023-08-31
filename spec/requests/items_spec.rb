@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "/items", type: :request do
   include_examples("request_shared_spec", "items", 3)

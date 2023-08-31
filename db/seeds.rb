@@ -8,7 +8,7 @@
 [
   {first_name: "Abebe", last_name: "Kebede", age: 24},
   {first_name: "Mahlet", last_name: "Worku", age: 26},
-  {first_name: "Alemu", last_name: "Bekele", age: 25},
+  {first_name: "Alemu", last_name: "Bekele", age: 25}
 ].each do |p|
   Person.create!(**p)
 end

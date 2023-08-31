@@ -1,5 +1,4 @@
-require 'rails_helper'
-
+require "rails_helper"
 
 RSpec.describe "/invoices", type: :request do
   include_examples("request_shared_spec", "invoices", 6, [:index])
@@ -27,7 +26,7 @@ RSpec.describe "/invoices", type: :request do
     }
   }
 
-  describe "GET /index" do
+  describe "GET /customers/:id/invoices" do
     it "returns success response" do
       customer1 = create(:customer)
       customer2 = create(:customer)

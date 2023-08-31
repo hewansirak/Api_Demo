@@ -1,6 +1,12 @@
 class InvoicesController < ApplicationController
   include Common
 
+  def index
+    super do
+      Invoice.includes(:customer).where(customer_id: params[:id])
+    end
+  end
+
   private
 
   def model_params

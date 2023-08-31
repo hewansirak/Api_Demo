@@ -7,7 +7,11 @@ module Common
   end
 
   def index
-    data = @clazz.all
+    data = if block_given?
+      yield
+    else
+      @clazz.all
+    end
     render json: {success: true, data: serialize(data)}
   end
 
@@ -16,7 +20,12 @@ module Common
   end
 
   def create
-    obj = @clazz.new(model_params)
+    obj = if block_given?
+      yield
+    else
+      @clazz.new(model_params)
+    end
+
     if obj.save
       render json: {success: true, data: serialize(obj)}, status: :created
     else
@@ -27,10 +36,16 @@ module Common
   end
 
   def update
-    if @obj.update(model_params)
-      render json: {success: true, data: serialize(@obj)}
+    obj = if block_given?
+      yield
     else
-      render json: {success: false, error: @obj.errors.full_messages[0]}, status: :unprocessable_entity
+      @obj
+    end
+
+    if obj.update(model_params)
+      render json: {success: true, data: serialize(obj)}
+    else
+      render json: {success: false, error: obj.errors.full_messages[0]}, status: :unprocessable_entity
     end
   rescue => e
     render json: {success: false, error: e.message}
